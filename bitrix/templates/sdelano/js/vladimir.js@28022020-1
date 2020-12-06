@@ -1,0 +1,86 @@
+$(function() {	
+	
+	//first block(mobile fix)		
+	function mobileFirstBlock() {
+		let bodyEl = $("body"); 
+		if(bodyEl.hasClass("body-main") && bodyEl.width() < 768) {			
+			if($(".landing__block-content").height()+113+20 >= bodyEl.innerHeight()) {
+				bodyEl.addClass("old-mobile");				
+			} else {
+				bodyEl.removeClass("old-mobile");
+			}
+		}
+	}		
+	window.addEventListener('resize', function() {    	
+		mobileFirstBlock();
+    });
+	mobileFirstBlock();	
+	
+	
+    //video reviews slider(addvladimir)
+    var $sliderReviews = $('.gallery-reviews'); 
+    var $sliderReviews = $sliderReviews.bxSlider({
+      speed: 400,
+      auto: false,
+      autoControls: false,
+      stopAutoOnClick: true,
+      pager: true,
+      controls: true,
+      touchEnabled: true,
+      oneToOneTouch: true,
+      onSlideAfter: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        $sliderReviewsCaption.goToSlide(newIndex);
+      },
+      onSlideBefore: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        //$slider12.goToSlide(newIndex);
+      },
+      onSlideNext: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        //$slider12.goToSlide(newIndex);
+      },
+      onSlidePrev: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        //$slider12.goToSlide(newIndex);
+      }
+    });
+
+    var $sliderReviewsCaption = $('.gallery-reviews-caption');
+    var $sliderReviewsCaption = $sliderReviewsCaption.bxSlider({
+      auto: false,
+      autoControls: false,
+      stopAutoOnClick: false,
+      touchEnabled: false,
+      oneToOneTouch: true,
+      mode: 'fade',
+      pager: false,
+      onSlideAfter: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        $sliderReviewsCaption.goToSlide(newIndex);
+      },
+      onSlideBefore: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        //$slider1.goToSlide(newIndex);
+      },
+      onSlideNext: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        $sliderReviews.goToSlide(newIndex);
+      },
+      onSlidePrev: function (slide, oldIndex, newIndex) {
+        //console.log(newIndex);
+        $sliderReviews.goToSlide(newIndex);
+      }
+    });
+
+    $sliderReviews.closest(".gallery__slides-images-container").find('.gallery__btn-navigation--next').on('click', function () {
+      $sliderReviews.goToNextSlide();
+      $sliderReviewsCaption.goToNextSlide();
+      return false;
+    });
+    $sliderReviews.closest(".gallery__slides-images-container").find('.gallery__btn-navigation--prev').on('click', function () {
+      $sliderReviews.goToPrevSlide();
+      $sliderReviewsCaption.goToPrevSlide();
+      return false;
+    });
+});
